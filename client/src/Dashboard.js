@@ -1,5 +1,6 @@
 import { useState, useEffect} from "react";
 import useAuth from "./useAuth";
+import LikedSongs from "./LikedSongs";
 import TrackSearchResult from "./TrackSearchResult";
 import SpotifyWebApi from "spotify-web-api-node";
 
@@ -7,16 +8,26 @@ const spotifyApi = new SpotifyWebApi({
     clientId: "9bc2ed28c5124518a2b45d4d3d514721",
 })
 
+let amount = 0;
+
 export default function Dashboard({ code }) {
     const accessToken = useAuth(code);
     const [search, setSearch] = useState("");
     const [searchResults, setSearchResults] = useState([]);
-    console.log(searchResults);
+    const [totalSongs, setTotalSongs] = useState(0);
 
     useEffect(() => {
         if (!accessToken) return;
         spotifyApi.setAccessToken(accessToken);
     }, [accessToken])
+
+    useEffect(() => {
+        if (!accessToken) return;
+        console.log('firing this shit');
+        spotifyApi.getMySavedTracks({ limit: 20, offset: 0, }).then(res => {
+            setTotalSongs(res.body.total);
+        })
+    })
 
     useEffect(() => {
         if (!search) return setSearchResults([]);
@@ -41,6 +52,7 @@ export default function Dashboard({ code }) {
         return () => cancel = true;
     }, [search, accessToken])
 
+
     return (
         <div>
             <input type="text" placeholder="Search song/artist" value={search} 
@@ -50,6 +62,7 @@ export default function Dashboard({ code }) {
                     <TrackSearchResult track={track} key={track.uri} />
                 ))}
             </div>
+            <div>{totalSongs}</div>
         </div>
 
     )
