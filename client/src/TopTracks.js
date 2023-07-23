@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import useAuth from "./useAuth";
 import DrawRadar from "./DrawRadar";
 import SpotifyWebApi from "spotify-web-api-node";
+import SidePanel from "./SidePanel";
 
 const spotifyApi = new SpotifyWebApi({
     clientId: "9bc2ed28c5124518a2b45d4d3d514721",
@@ -61,9 +62,13 @@ export default function TopTracks({ code }) {
                         (range === "short_term") ? setShortAverages(result) : setLongAverages(result);
                         return;
                     }
-                })
+                }).catch(err => {
+                        console.log(err);
+                    })
             })
-        })
+        }).catch(err => {
+                console.log(err);
+            })
     }
 
     useEffect(() => {
@@ -73,14 +78,33 @@ export default function TopTracks({ code }) {
 
     useEffect(() => {
         if (!accessToken) return;
-        getTopTracks(10, "short_term");
-        getTopTracks(50, "long_term");
+        // save some api calls lol
+        // getTopTracks(10, "short_term");
+        // getTopTracks(50, "long_term");
+
+        gotAverages = true;
+        setShortAverages({
+            avgDuration : 201612.5,
+            avgEnergy : 0.6743,
+            avgMood : 0.34043,
+            avgPopularity : 76.5,
+            avgTempo : 118.82220000000002,
+        });
+
+        setLongAverages( {
+            avgDuration : 189473.44,
+            avgEnergy : 0.5759000000000001,
+            avgMood : 0.5131199999999998,
+            avgPopularity : 58.2,
+            avgTempo : 117.53337999999997,
+        });
     }, [accessToken]);
 
     return (
-        <div>
+        <div style={{height: 500, width: 500,}}>
             Hello there
             {(gotAverages && shortAverages && longAverages) ? <DrawRadar data={{short_term: shortAverages, long_term: longAverages,}} /> : 0}
+            {(gotAverages && shortAverages && longAverages) ? <SidePanel data={{short_term: shortAverages, long_term: longAverages,}} /> : 0}
         </div>
     )
 }

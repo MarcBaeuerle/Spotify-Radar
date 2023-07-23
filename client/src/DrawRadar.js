@@ -14,21 +14,22 @@ const clamp = (value, lo, hi) => {
     return value > hi ? hi : value
 }
 
+//jesus christ this is UGLY
+//Ill refactor
+//...eventually
 const computeScores = (data) => {
     let dur = data.avgDuration;
     let tempo = data.avgTempo;
     let energy = data.avgEnergy;
     let pop = data.avgPopularity;
+    let mood = data.avgMood;
 
-    //jesus christ this is UGLY
-    //Ill refactor
-    //...eventually
     return {
         Duration: Math.round(((clamp(dur, MIN_D, MAX_D) - MIN_D) / (MAX_D-MIN_D)) * 100) / 10,
         Tempo: Math.round(((clamp(tempo, MIN_T, MAX_T) - MIN_T) / (MAX_T-MIN_T)) * 100) / 10,
         Popularity: Math.round(pop) / 10,
-        Mood: Math.round(((clamp(data.avgMood, 0.1, 0.9))) * 100) / 10,
-        Energy: Math.round(energy * 100) / 10,
+        Mood: Math.round(((clamp(mood, 0.1, 0.9) - 0.1) / 0.9) * 100) / 10,
+        Energy: Math.round(((clamp(energy, 0.1, 0.9) - 0.1) / 0.9) * 100) / 10,
     }
 
 }
@@ -41,12 +42,22 @@ export default function DrawRadar({ data }) {
         datasets: [{
             label: "Last Month",
             data: Object.values(computeScores(data.short_term)),
-            backgroundColor: `rgba(0,0,0,0.2)`,
+            backgroundColor: 'rgba(30, 215, 96, 0.2)',
+            borderColor: 'rgb(19, 145, 64)',
+            pointBackgroundColor: 'rgb(19, 145, 64)',
+            pointBorderColor: '#000',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(19, 145, 64)'
         }, {
-            label: "All Time",
-            data: Object.values(computeScores(data.long_term)) || null,
-            backgroundColor: `rgba(100,100,0,0.2)`,
-        }]
+                label: "All Time",
+                data: Object.values(computeScores(data.long_term)) || null,
+                backgroundColor: 'rgba(209, 131, 21, 0.2)',
+                borderColor: 'rgb(209, 131, 21)',
+                pointBackgroundColor: 'rgb(209, 131, 21)',
+                pointBorderColor: '#000',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(209, 131, 21)'
+            }]
     })
 
     return (
@@ -56,8 +67,25 @@ export default function DrawRadar({ data }) {
                     ticks: { //Removes numbers
                         display: false,
                     },
-                    min: 0,
-                    max: 10,
+                    angleLines: {
+                        color: 'black',
+                    },
+                    pointLabels: {
+                        font: {
+                            size: 17,
+                        }
+                    },
+                    suggestedMin: 0,
+                    suggestedMax: 10,
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 15,
+                        }
+                    }
                 }
             }
         }} />
