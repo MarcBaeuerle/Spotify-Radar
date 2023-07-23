@@ -7,19 +7,6 @@ const spotifyApi = new SpotifyWebApi({
     clientId: "9bc2ed28c5124518a2b45d4d3d514721",
 })
 
-const getTopTracks = async (amount, range) => {
-    return spotifyApi.getMyTopTracks({ limit: 20, time_range: "long_term" });
-}
-
-const getTrackFeatures = async (id) => {
-    const data = await spotifyApi.getAudioFeaturesForTrack(id);
-    return data;
-}
-
-
-const getScores = (arr) => {
-}
-
 const getAverageFeatures = (arr) => {
     let length = arr.length;
     let duration = 0;
@@ -46,12 +33,38 @@ const getAverageFeatures = (arr) => {
 }
 
 let gotAverages = false;
+let tracks = new Array();
 
 export default function TopTracks({ code }) {
+    console.log(`TopTracks`);
     const accessToken = useAuth(code);
-    const [tracks, setTracks] = useState(new Array());
-    const [averages, setAverages] = useState();
-    const [scores, setScores] = useState({});
+    const [shortAverages, setShortAverages] = useState();
+    const [longAverages, setLongAverages] = useState();
+
+    const getTopTracks = async (amount, range) => {
+        spotifyApi.getMyTopTracks({ limit: amount, time_range: range }).then(res => {
+            res.body.items.map(track => {
+                spotifyApi.getAudioFeaturesForTrack(track.id).then((data) => {
+                    tracks.push( {
+                        name: track.name,
+                        artists: track.artists[0].name,
+                        energy: data.body.energy,
+                        tempo: data.body.tempo,
+                        popularity: track.popularity,
+                        duration: track.duration_ms,
+                        mood: data.body.valence,
+                    });
+                    if (tracks.length === amount) {
+                        let result = getAverageFeatures(tracks);
+                        gotAverages = true;
+                        tracks = [];
+                        (range === "short_term") ? setShortAverages(result) : setLongAverages(result);
+                        return;
+                    }
+                })
+            })
+        })
+    }
 
     useEffect(() => {
         if (!accessToken) return;
@@ -60,40 +73,14 @@ export default function TopTracks({ code }) {
 
     useEffect(() => {
         if (!accessToken) return;
-        getTopTracks(1, "short_term").then(res => {
-            res.body.items.map(track => {
-                let obj;
-                getTrackFeatures(track.id).then((data) => {
-                    obj = {
-                        name: track.name,
-                        artists: track.artists[0].name,
-                        energy: data.body.energy,
-                        tempo: data.body.tempo,
-                        popularity: track.popularity,
-                        duration: track.duration_ms,
-                        mood: data.body.valence,
-                    }
-                    setTracks(tracks.push(obj));
-                    if (tracks.length === 20) {
-                        setAverages(getAverageFeatures(tracks));
-                        gotAverages = true;
-                    }
-                });
-            });
-        })
+        getTopTracks(10, "short_term");
+        getTopTracks(50, "long_term");
     }, [accessToken]);
-
 
     return (
         <div>
             Hello there
-            {gotAverages ? <DrawRadar obj={averages} /> : 0}
-
+            {(gotAverages && shortAverages && longAverages) ? <DrawRadar data={{short_term: shortAverages, long_term: longAverages,}} /> : 0}
         </div>
-        // <div style={{ overflowY: "auto"}}>
-        //     {searchResults.map(track => (
-        //         <TrackSearchResult track={track} key={track.uri} />
-        //     ))}
-        // </div>
     )
 }

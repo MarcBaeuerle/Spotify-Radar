@@ -6,6 +6,7 @@ import TopTracks from './TopTracks';
 const code = new URLSearchParams(window.location.search).get('code');
 
 function App() {
+    console.log(`App`);
     return code ? <TopTracks code={code} /> : <Login />
 }
 
