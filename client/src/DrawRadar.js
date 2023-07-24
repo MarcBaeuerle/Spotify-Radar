@@ -35,7 +35,6 @@ const computeScores = (data) => {
 }
 
 export default function DrawRadar({ data }) {
-    console.log(data);
     console.log(`DrawRadar`);
     const [trackData, setTrackData] = useState({
         labels: ['Duration', 'Tempo', 'Popularity', 'Mood', 'Energy'], 

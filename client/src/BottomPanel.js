@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import BottomPanelNode from "./BottomPanelNode";
 
+
+
 export default function BottomPanel({data}) {
     console.log(`BottomPanel`);
     const [omfg, setOmfg] = useState(data)

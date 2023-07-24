@@ -53,7 +53,6 @@ export default function TopTracks({ code }) {
                 let trackNames = new Array();
                 res.body.items.map(track => {
                     trackIDs.push(track.id);
-                    console.log(`${range} ${track.popularity}`);
                     popularities.push(track.popularity || 1);
                     trackNames.push({
                         song: track.name,
@@ -63,7 +62,6 @@ export default function TopTracks({ code }) {
                     })
                 })
 
-                console.log(popularities);
 
                 if (range === "short_term") setSongNames(trackNames);
                 return trackIDs;
