@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Radar } from "react-chartjs-2";
 import {Chart as ChartJS} from 'chart.js/auto';
+import { updateSourceFile } from "typescript";
 
 const MIN_D = 120000; //1 minutes
 const MAX_D = 240000; //6.5 minutes
@@ -36,11 +37,13 @@ const computeScores = (data) => {
 
 export default function DrawRadar({ data }) {
     console.log(`DrawRadar`);
+    console.log(data);
+    const [update, setUpdate] = useState(0);
     const [trackData, setTrackData] = useState({
         labels: ['Duration', 'Tempo', 'Popularity', 'Mood', 'Energy'], 
         datasets: [{
             label: "Last Month",
-            data: Object.values(computeScores(data.short_term)),
+            data: Object.values(computeScores(data.short_term)) || null,
             backgroundColor: 'rgba(30, 215, 96, 0.2)',
             borderColor: 'rgb(19, 145, 64)',
             pointBackgroundColor: 'rgb(19, 145, 64)',
@@ -60,33 +63,35 @@ export default function DrawRadar({ data }) {
     })
 
     return (
-        <Radar data={trackData} options={{
-            scales: {
-                r: {
-                    ticks: { //Removes numbers
-                        display: false,
-                    },
-                    angleLines: {
-                        color: 'black',
-                    },
-                    pointLabels: {
-                        font: {
-                            size: 17,
-                        }
-                    },
-                    suggestedMin: 0,
-                    suggestedMax: 10,
-                }
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 15,
+        <div className="w-1/3 aspect-square">
+            <Radar data={trackData} options={{
+                scales: {
+                    r: {
+                        ticks: { //Removes numbers
+                            display: false,
+                        },
+                        angleLines: {
+                            color: 'black',
+                        },
+                        pointLabels: {
+                            font: {
+                                size: 17,
+                            }
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 10,
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                size: 15,
+                            }
                         }
                     }
                 }
-            }
-        }} />
+            }} />
+        </div>
     )
 }

@@ -11,24 +11,28 @@ export default function SidePanel({ data }) {
     console.log(`SidePanel`);
     return (
         <>
-            <ul>
-                <h4>Last Months Averages</h4>
-                <li>
-                    Duration: {millisToMinutesAndSeconds(data.short_term.avgDuration)}
-                </li>
-                <li>
-                    Tempo: {Math.floor(data.short_term.avgTempo)} bpm
-                </li>
-                <li>
-                    Popularity: {Math.round(data.short_term.avgPopularity * 1) / 10} / 10
-                </li>
-                <li>
-                    Mood: {Math.round(data.short_term.avgMood * 100) / 10} / 10
-                </li>
-                <li>
-                    Energy: {Math.round(data.short_term.avgEnergy * 100) / 10} / 10
-                </li>
-            </ul>
+            <section className="flex flex-col bg-red-400 p-6 rounded-3xl border-black border-2 gap-2 h-fit my-auto">
+                <h4 className="text-xl">Last Months Averages</h4>
+                <hr className="bg-black"/>
+                <div className="flex gap-4">
+                    <div>
+                        <p>Duration:</p>
+                        <p>Tempo:</p>
+                        <p>Popularity:</p>
+                        <p>Mood:</p>
+                        <p>Energy:</p>
+                    </div>
+                    <div>
+                        <p>{millisToMinutesAndSeconds(data.short_term.avgDuration)} </p>
+                        <p>{Math.floor(data.short_term.avgTempo)} bpm </p>
+                        <p>{Math.round(data.short_term.avgPopularity * 1) / 10} / 10 </p>
+                        <p>{Math.round(data.short_term.avgMood * 100) / 10} / 10 </p>
+                        <p>{Math.round(data.short_term.avgEnergy * 100) / 10} / 10 </p>
+                    </div>
+                </div>
+
+
+            </section>
         </>
     )
 

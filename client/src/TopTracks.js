@@ -40,9 +40,11 @@ let gotAverages = false;
 export default function TopTracks({ code }) {
     console.log(`TopTracks`);
     const accessToken = useAuth(code);
-    const [shortAverages, setShortAverages] = useState();
-    const [longAverages, setLongAverages] = useState();
-    const [songNames, setSongNames] = useState();
+    let shortAverages;
+    let longAverages;
+    let songNames;
+
+    const [finalData, setFinalData] = useState();
 
     const getTopTracks = async (amount, range) => {
         let popularities = new Array();
@@ -62,14 +64,13 @@ export default function TopTracks({ code }) {
                     })
                 })
 
-
-                if (range === "short_term") setSongNames(trackNames);
+                if (range === "short_term") songNames = trackNames;
                 return trackIDs;
             })
             .then(res => spotifyApi.getAudioFeaturesForTracks(res))
             .then(data => {
-                data.body.audio_features.map((track,index) => {
-                    tracks.push( {
+                data.body.audio_features.map((track, index) => {
+                    tracks.push({
                         energy: track.energy,
                         tempo: track.tempo,
                         popularity: popularities[index],
@@ -78,10 +79,16 @@ export default function TopTracks({ code }) {
                     });
                     if (tracks.length === amount) {
                         let result = getAverageFeatures(tracks);
-                        gotAverages = true;
                         tracks = [];
                         popularities = [];
-                        (range === "short_term") ? setShortAverages(result) : setLongAverages(result);
+                        if (range === "short_term") {
+                            shortAverages = result;
+                        } else {
+                            longAverages = result;
+                            setFinalData({ s: shortAverages, l: longAverages, n: songNames })
+                            gotAverages = true;
+                            console.log(finalData);
+                        }
                         return;
                     }
                 })
@@ -97,34 +104,41 @@ export default function TopTracks({ code }) {
         if (!accessToken) return;
         getTopTracks(10, "short_term");
         getTopTracks(50, "long_term");
-
-        // gotAverages = true;
-        // setShortAverages({
-        //     avgDuration : 201612.5,
-        //     avgEnergy : 0.6743,
-        //     avgMood : 0.34043,
-        //     avgPopularity : 76.5,
-        //     avgTempo : 118.82220000000002,
-        // });
-        //
-        // setLongAverages( {
-        //     avgDuration : 189473.44,
-        //     avgEnergy : 0.5759000000000001,
-        //     avgMood : 0.5131199999999998,
-        //     avgPopularity : 58.2,
-        //     avgTempo : 117.53337999999997,
-        // });
-        
     }, [accessToken]);
 
-    return (
-        <div style={{height: 500, width: 500,}}>
-            Hello there
-            {(gotAverages && shortAverages && longAverages) ? <DrawRadar data={{short_term: shortAverages, long_term: longAverages,}} /> : 0}
-            {(gotAverages && shortAverages && longAverages) ? <SidePanel data={{short_term: shortAverages, long_term: longAverages,}} /> : 0}
-            {(gotAverages && shortAverages && longAverages) ? <BottomPanel data={songNames} /> : 0}
-        </div>
+    const renderInfo = (val) => {
+        let mock;
+        if (!val) {
+            let lol = {
+                avgDuration: 0,
+                avgTempo: 0,
+                avgEnergy: 0,
+                avgMood: 0,
+                avgPopularity: 0,
+            }
 
+            mock = { short_term: lol, long_term: lol }
+        } else {
+            mock = { short_term: finalData.s, long_term: finalData.l }
+        }
+
+
+        return (
+            <>
+                <section className="flex flex-wrap justify-center gap-10 bg-red-100 pt-10">
+                    <DrawRadar data={mock} />
+                    <SidePanel data={mock} />
+                </section>
+                {val ? <BottomPanel data={finalData.n || null} /> : null}
+            </>
+        )
+
+    }
+    return (
+        <div>
+            {(gotAverages) ? renderInfo(1) :
+                renderInfo(0)}
+        </div>
     )
 }
 
