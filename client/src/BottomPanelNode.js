@@ -28,9 +28,10 @@ function calculateTextSize(val) {
 }
 
 export default function BottomPanelNode({ test }) {
+    let name = 'Luv(sic.) pt3 (feat ur mom)'
     return (
         <div className="text-center flex flex-col justify-center items-center">
-            <h4 className={calculateTextSize(test.key) + ' text-blue-950' }>{test.song.split('(')[0]}</h4>
+            <h4 className={calculateTextSize(test.key) + ' text-blue-950' }>{test.song.replace('-','(').split('(')[0]}</h4>
             <p className="text-sm text-black"> {convertArrToReadableString(test.artists)}</p>
         </div>
     )

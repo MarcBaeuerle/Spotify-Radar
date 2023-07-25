@@ -64,7 +64,7 @@ export default function TopTracks({ code }) {
                     })
                 })
 
-                if (range === "short_term") songNames = trackNames;
+                if (range === "long_term") songNames = trackNames;
                 return trackIDs;
             })
             .then(res => spotifyApi.getAudioFeaturesForTracks(res))
