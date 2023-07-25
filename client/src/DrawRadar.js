@@ -29,7 +29,7 @@ const computeScores = (data) => {
         Duration: Math.round(((clamp(dur, MIN_D, MAX_D) - MIN_D) / (MAX_D-MIN_D)) * 100) / 10,
         Tempo: Math.round(((clamp(tempo, MIN_T, MAX_T) - MIN_T) / (MAX_T-MIN_T)) * 100) / 10,
         Popularity: Math.round(pop) / 10,
-        Mood: Math.round(((clamp(mood, 0.1, 0.9) - 0.1) / 0.9) * 100) / 10,
+        Mood: Math.round(((clamp(mood, 0.1, 0.9) - 0.05) / 0.9) * 100) / 10,
         Energy: Math.round(((clamp(energy, 0.1, 0.9) - 0.1) / 0.9) * 100) / 10,
     }
 
@@ -37,14 +37,12 @@ const computeScores = (data) => {
 
 export default function DrawRadar({ data }) {
     console.log(`DrawRadar`);
-    console.log(data);
-    const [update, setUpdate] = useState(0);
-    const [trackData, setTrackData] = useState({
+    const chartData = {
         labels: ['Duration', 'Tempo', 'Popularity', 'Mood', 'Energy'], 
         datasets: [{
             label: "Last Month",
             data: Object.values(computeScores(data.short_term)) || null,
-            backgroundColor: 'rgba(30, 215, 96, 0.2)',
+            backgroundColor: 'rgba(30, 215, 96, 0.3)',
             borderColor: 'rgb(19, 145, 64)',
             pointBackgroundColor: 'rgb(19, 145, 64)',
             pointBorderColor: '#000',
@@ -53,18 +51,18 @@ export default function DrawRadar({ data }) {
         }, {
                 label: "All Time",
                 data: Object.values(computeScores(data.long_term)) || null,
-                backgroundColor: 'rgba(209, 131, 21, 0.2)',
-                borderColor: 'rgb(209, 131, 21)',
+                backgroundColor: 'rgba(37,76,218, 0.2)',
+                borderColor: 'rgb(15, 30, 87)',
                 pointBackgroundColor: 'rgb(209, 131, 21)',
                 pointBorderColor: '#000',
                 pointHoverBackgroundColor: '#fff',
                 pointHoverBorderColor: 'rgb(209, 131, 21)'
             }]
-    })
+    }
 
     return (
-        <div className="w-1/3 aspect-square">
-            <Radar data={trackData} options={{
+        <div className="w-5/6 aspect-square sm:w-1/2 md:w-2/5 max-w-md">
+            <Radar data={chartData} options={{
                 scales: {
                     r: {
                         ticks: { //Removes numbers
@@ -74,6 +72,7 @@ export default function DrawRadar({ data }) {
                             color: 'black',
                         },
                         pointLabels: {
+                            color: 'black',
                             font: {
                                 size: 17,
                             }
@@ -87,6 +86,7 @@ export default function DrawRadar({ data }) {
                         labels: {
                             font: {
                                 size: 15,
+                                color: 'black',
                             }
                         }
                     }

@@ -9,12 +9,14 @@ function convertArrToReadableString(arr) {
         const delimiter = isLastItem ? ', and' : ',';
         return `${prevText}${delimiter} ${nextNum}`;
     });
-} 
+}
 
 function calculateTextSize(val) {
     let result = ``;
 
-    if (val > 6) {
+    if (val > 7) {
+        result = 'text-2xl';
+    } else if (val > 5) {
         result = 'text-3xl';
     } else if (val > 2) {
         result = 'text-5xl';
@@ -28,8 +30,8 @@ function calculateTextSize(val) {
 export default function BottomPanelNode({ test }) {
     return (
         <div className="text-center flex flex-col justify-center items-center">
-            <h4 className={calculateTextSize(test.key)}>{test.song.split('(')[0]}</h4> 
-            <p className="text-sm"> {convertArrToReadableString(test.artists)}</p>
+            <h4 className={calculateTextSize(test.key) + ' text-blue-950' }>{test.song.split('(')[0]}</h4>
+            <p className="text-sm text-black"> {convertArrToReadableString(test.artists)}</p>
         </div>
     )
 }

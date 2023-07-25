@@ -6,7 +6,7 @@ const AUTH_URL =
 export default function Login() {
     return (
         <section className='absolute flex h-screen w-screen top-0'>
-            <div className='z-50 m-auto rounded-3xl h-96 w-80 bg-zinc-800 text-gray-200 p-7 flex flex-col items-center justify-around'>
+            <div className='z-50 m-auto rounded-3xl h-96 w-80 bg-blue-950 text-gray-200 p-7 flex flex-col items-center justify-around'>
                 <h1 className='text-3xl'>Spotify Radar</h1>
                 <div className='flex flex-col items-center'>
                     <h4 className='text-center'>Your personal Spotify listening habits all in one
@@ -14,7 +14,7 @@ export default function Login() {
                     </h4>
                     <h4 className=''>Login below to get started</h4>
                 </div>
-                <a href={AUTH_URL} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 w-fit relative rounded-xl'>
+                <a href={AUTH_URL} className='bg-green-500 hover:bg-blue-950 hover:text-white hover:border-green-500 border-2 border-blue-950 text-black font-bold py-3 px-6 w-fit relative rounded-xl'>
                     Login with Spotify
                 </a>
                 <div className='items-center flex flex-col'>

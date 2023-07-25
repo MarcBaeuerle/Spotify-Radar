@@ -125,7 +125,8 @@ export default function TopTracks({ code }) {
 
         return (
             <>
-                <section className="flex flex-wrap justify-center gap-10 bg-red-100 pt-10">
+                <h1 className="text-5xl text-center py-4 font-bold">Spotify Radar</h1>
+                <section className="flex flex-wrap justify-center gap-10 pt-4">
                     <DrawRadar data={mock} />
                     <SidePanel data={mock} />
                 </section>
