@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-
+import React from "react";
 
 function millisToMinutesAndSeconds(millis) {
   var minutes = Math.floor(millis / 60000);

@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Radar } from "react-chartjs-2";
-import {Chart as ChartJS} from 'chart.js/auto';
-import { updateSourceFile } from "typescript";
+import { Chart as ChartJS } from 'chart.js/auto';
 
 const MIN_D = 120000; //1 minutes
 const MAX_D = 240000; //6.5 minutes
@@ -26,8 +25,8 @@ const computeScores = (data) => {
     let mood = data.avgMood;
 
     return {
-        Duration: Math.round(((clamp(dur, MIN_D, MAX_D) - MIN_D) / (MAX_D-MIN_D)) * 100) / 10,
-        Tempo: Math.round(((clamp(tempo, MIN_T, MAX_T) - MIN_T) / (MAX_T-MIN_T)) * 100) / 10,
+        Duration: Math.round(((clamp(dur, MIN_D, MAX_D) - MIN_D) / (MAX_D - MIN_D)) * 100) / 10,
+        Tempo: Math.round(((clamp(tempo, MIN_T, MAX_T) - MIN_T) / (MAX_T - MIN_T)) * 100) / 10,
         Popularity: Math.round(pop) / 10,
         Mood: Math.round(((clamp(mood, 0.1, 0.9) - 0.05) / 0.9) * 100) / 10,
         Energy: Math.round(((clamp(energy, 0.1, 0.9) - 0.1) / 0.9) * 100) / 10,
@@ -38,7 +37,7 @@ const computeScores = (data) => {
 export default function DrawRadar({ data }) {
     console.log(`DrawRadar`);
     const chartData = {
-        labels: ['Duration', 'Tempo', 'Popularity', 'Mood', 'Energy'], 
+        labels: ['Duration', 'Tempo', 'Popularity', 'Mood', 'Energy'],
         datasets: [{
             label: "Last Month",
             data: Object.values(computeScores(data.short_term)) || null,
@@ -49,15 +48,15 @@ export default function DrawRadar({ data }) {
             pointHoverBackgroundColor: '#fff',
             pointHoverBorderColor: 'rgb(19, 145, 64)'
         }, {
-                label: "All Time",
-                data: Object.values(computeScores(data.long_term)) || null,
-                backgroundColor: 'rgba(37,76,218, 0.2)',
-                borderColor: 'rgb(15, 30, 87)',
-                pointBackgroundColor: 'rgb(15, 30, 87)',
-                pointBorderColor: '#000',
-                pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: 'rgb(15, 30, 87)'
-            }]
+            label: "All Time",
+            data: Object.values(computeScores(data.long_term)) || null,
+            backgroundColor: 'rgba(37,76,218, 0.2)',
+            borderColor: 'rgb(15, 30, 87)',
+            pointBackgroundColor: 'rgb(15, 30, 87)',
+            pointBorderColor: '#000',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(15, 30, 87)'
+        }]
     }
 
     return (
@@ -85,8 +84,7 @@ export default function DrawRadar({ data }) {
                     legend: {
                         labels: {
                             font: {
-                                size: 15,
-                                color: 'black',
+                                size: 16,
                             }
                         }
                     }

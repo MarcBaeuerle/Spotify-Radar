@@ -5,8 +5,8 @@ const AUTH_URL =
 
 export default function Login() {
     return (
-        <section className='absolute flex h-screen w-screen top-0'>
-            <div className='z-50 m-auto font-rale rounded-3xl h-96 w-80 bg-blue-950 text-gray-200 p-7 flex flex-col items-center justify-around'>
+        <section className='-z-10 absolute flex h-screen w-screen top-0'>
+            <div className='z-30 m-auto font-rale rounded-3xl h-96 w-80 bg-blue-950 text-gray-200 p-7 flex flex-col items-center justify-around shadow-2xl shadow-black'>
                 <h1 className='text-3xl font-mont'>Spotify Radar</h1>
                 <div className='flex flex-col items-center'>
                     <h4 className='text-center'>Your personal Spotify listening habits all in one
@@ -18,13 +18,12 @@ export default function Login() {
                     Login with Spotify
                 </a>
                 <div className='items-center flex flex-col text-sm'>
-                    <p className='opacity-0'>Built by Marc Baeuerle</p>
+                    <p className=''>Built by Marc Baeuerle</p>
                     <p className=''>Project Hosted on <a className='underline duration-200 hover:text-green-500'
                         href='https://github.com/MarcBaeuerle/Spotify-Radar'>Github</a>
                     </p>
                 </div>
             </div>
-            <div className='w-screen z-0 h-screen bg-gray-500 opacity-50 absolute'></div>
         </section>
     )
 }

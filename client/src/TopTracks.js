@@ -55,12 +55,12 @@ export default function TopTracks({ code }) {
     }
 
     const getTopTracks = async (amount, range) => {
-        let popularities = new Array();
-        let tracks = new Array();
+        let popularities = [];
+        let tracks = [];
         spotifyApi.getMyTopTracks({ limit: amount, time_range: range })
             .then(res => {
-                let trackIDs = new Array();
-                let trackNames = new Array();
+                let trackIDs = [];
+                let trackNames = [];
                 res.body.items.map(track => {
                     trackIDs.push(track.id);
                     popularities.push(track.popularity || 1);
@@ -70,6 +70,7 @@ export default function TopTracks({ code }) {
                             return arr.name;
                         })
                     })
+                    return null;
                 })
 
                 if (range === "short_term") songNames = trackNames;
@@ -93,11 +94,15 @@ export default function TopTracks({ code }) {
                             shortAverages = result;
                         } else {
                             longAverages = result;
+                        }
+
+                        if (shortAverages && longAverages) {
                             setFinalData({ s: shortAverages, l: longAverages, n: songNames, m: myName, })
                             gotAverages = true;
                         }
-                        return;
+                        return null;
                     }
+                    return null;
                 })
             })
     }
@@ -131,7 +136,7 @@ export default function TopTracks({ code }) {
             mockName = '';
         } else {
             mock = { short_term: finalData.s, long_term: finalData.l }
-            mockName = finalData.m + `'s`;
+            mockName = (finalData.m + `'s`) || '';
         }
 
 

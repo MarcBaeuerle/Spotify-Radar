@@ -35,11 +35,11 @@ export default function BottomPanelNode({ test }) {
         setTimeout(() => {
             setTimer(true);
         }, (test.key + 1) * 250)
-    }, [])
+    }, [test.key])
 
     return (
         <div className={`text-center flex flex-col justify-center duration-1000 items-center ${timer ? " opacity-100 " : " opacity-0 "}`}>
-            <h4 className={calculateTextSize(test.key) + ' font-normal text-blue-950' }>{test.song.replace('-','(').split('(')[0] || test.song}</h4>
+            <h4 className={calculateTextSize(test.key) + ' font-medium text-blue-950' }>{test.song.replace('-','(').split('(')[0] || test.song}</h4>
             <p className="text-sm text-black"> {convertArrToReadableString(test.artists)}</p>
         </div>
     )
