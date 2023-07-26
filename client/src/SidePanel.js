@@ -11,7 +11,7 @@ export default function SidePanel({ data }) {
     console.log(`SidePanel`);
     return (
         <>
-            <section className="flex flex-col p-6 border-blue-900 rounded-3xl bg-blue-950 border-2 gap-2 h-fit my-auto w-fit shadow-sm text-slate-50">
+            <section className="flex flex-col p-6 rounded-3xl bg-blue-950 gap-2 h-fit my-auto w-fit shadow-2xl shadow-blue-950 text-slate-50">
                 <h4 className="text-xl">Last Months Averages</h4>
                 <hr className="bg-green-500 text-green-500"/>
                 <div className="flex gap-4">

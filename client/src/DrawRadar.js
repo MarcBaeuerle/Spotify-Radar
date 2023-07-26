@@ -53,10 +53,10 @@ export default function DrawRadar({ data }) {
                 data: Object.values(computeScores(data.long_term)) || null,
                 backgroundColor: 'rgba(37,76,218, 0.2)',
                 borderColor: 'rgb(15, 30, 87)',
-                pointBackgroundColor: 'rgb(209, 131, 21)',
+                pointBackgroundColor: 'rgb(15, 30, 87)',
                 pointBorderColor: '#000',
                 pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: 'rgb(209, 131, 21)'
+                pointHoverBorderColor: 'rgb(15, 30, 87)'
             }]
     }
 

@@ -43,8 +43,16 @@ export default function TopTracks({ code }) {
     let shortAverages;
     let longAverages;
     let songNames;
+    let myName;
 
     const [finalData, setFinalData] = useState();
+
+    const getName = async () => {
+        spotifyApi.getMe()
+            .then(res => {
+                myName = res.body.display_name;
+            })
+    }
 
     const getTopTracks = async (amount, range) => {
         let popularities = new Array();
@@ -64,7 +72,7 @@ export default function TopTracks({ code }) {
                     })
                 })
 
-                if (range === "long_term") songNames = trackNames;
+                if (range === "short_term") songNames = trackNames;
                 return trackIDs;
             })
             .then(res => spotifyApi.getAudioFeaturesForTracks(res))
@@ -85,9 +93,8 @@ export default function TopTracks({ code }) {
                             shortAverages = result;
                         } else {
                             longAverages = result;
-                            setFinalData({ s: shortAverages, l: longAverages, n: songNames })
+                            setFinalData({ s: shortAverages, l: longAverages, n: songNames, m: myName, })
                             gotAverages = true;
-                            console.log(finalData);
                         }
                         return;
                     }
@@ -102,12 +109,15 @@ export default function TopTracks({ code }) {
 
     useEffect(() => {
         if (!accessToken) return;
+        getName();
         getTopTracks(10, "short_term");
         getTopTracks(50, "long_term");
     }, [accessToken]);
 
     const renderInfo = (val) => {
         let mock;
+        let mockName;
+
         if (!val) {
             let lol = {
                 avgDuration: 0,
@@ -118,19 +128,21 @@ export default function TopTracks({ code }) {
             }
 
             mock = { short_term: lol, long_term: lol }
+            mockName = '';
         } else {
             mock = { short_term: finalData.s, long_term: finalData.l }
+            mockName = finalData.m + `'s`;
         }
 
 
         return (
             <>
-                <h1 className="text-5xl text-center py-4 font-bold">Spotify Radar</h1>
+                <h1 className="text-5xl text-center py-4 font-bold font-mont text-blue-950">{mockName} Spotify Radar</h1>
                 <section className="flex flex-wrap justify-center gap-10 pt-4">
                     <DrawRadar data={mock} />
                     <SidePanel data={mock} />
                 </section>
-                {val ? <BottomPanel data={finalData.n || null} /> : null}
+                {val ? <BottomPanel data={finalData.n || null} /> : <div className="h-screen"></div>}
             </>
         )
 

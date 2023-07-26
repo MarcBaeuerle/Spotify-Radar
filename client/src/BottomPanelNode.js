@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 
 function convertArrToReadableString(arr) {
     if (arr.length === 0) return '';
@@ -27,12 +27,22 @@ function calculateTextSize(val) {
     return result;
 }
 
+
 export default function BottomPanelNode({ test }) {
-    let name = 'Luv(sic.) pt3 (feat ur mom)'
+    const [timer, setTimer] = useState(false);
+    
+    useEffect(() => {
+        setTimeout(() => {
+            setTimer(true);
+        }, (test.key + 1) * 250)
+    }, [])
+
     return (
-        <div className="text-center flex flex-col justify-center items-center">
-            <h4 className={calculateTextSize(test.key) + ' text-blue-950' }>{test.song.replace('-','(').split('(')[0]}</h4>
+        <div className={`text-center flex flex-col justify-center duration-1000 items-center ${timer ? " opacity-100 " : " opacity-0 "}`}>
+            <h4 className={calculateTextSize(test.key) + ' font-normal text-blue-950' }>{test.song.replace('-','(').split('(')[0] || test.song}</h4>
             <p className="text-sm text-black"> {convertArrToReadableString(test.artists)}</p>
         </div>
     )
 }
+
+        // <div className={"text-center flex flex-col justify-center duration-700 items-center " + timer ? " opacity-100" : " opacity-0"}>
