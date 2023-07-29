@@ -38,8 +38,9 @@ const getAverageFeatures = (arr) => {
 let gotAverages = false;
 
 export default function TopTracks({ code }) {
-    console.log(`TopTracks`);
+
     const accessToken = useAuth(code);
+    console.log(accessToken);
     let shortAverages;
     let longAverages;
     let songNames;
@@ -154,7 +155,7 @@ export default function TopTracks({ code }) {
     }
     return (
         <div>
-            {(gotAverages) ? renderInfo(1) :
+            {(finalData) ? renderInfo(1) :
                 renderInfo(0)}
         </div>
     )

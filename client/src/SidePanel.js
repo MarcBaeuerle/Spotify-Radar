@@ -7,7 +7,6 @@ function millisToMinutesAndSeconds(millis) {
 }
 
 export default function SidePanel({ data }) {
-    console.log(`SidePanel`);
     return (
         <>
             <section className="flex flex-col p-6 rounded-3xl bg-blue-950 gap-2 h-fit my-auto w-fit shadow-2xl shadow-blue-950 text-slate-50">

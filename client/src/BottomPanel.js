@@ -4,7 +4,6 @@ import BottomPanelNode from "./BottomPanelNode";
 
 
 export default function BottomPanel({ data }) {
-    console.log(`BottomPanel`);
     const [omfg] = useState(data)
     return (
         <div>
