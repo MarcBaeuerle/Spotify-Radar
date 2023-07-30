@@ -95,7 +95,6 @@ export default function TopTracks({ code }) {
 
                         if (shortAverages && longAverages) {
                             setFinalData({ s: shortAverages, l: longAverages, n: songNames, m: myName, })
-                            gotAverages = true;
                         }
                         return null;
                     }
