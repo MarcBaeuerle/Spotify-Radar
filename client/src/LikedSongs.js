@@ -24,7 +24,6 @@ export default function LikedSongs({ code }) {
     useEffect(() => {
         if (!accessToken) return;
         if (!totalSongs) return;
-        console.log(`offset is: ${offset}`);
         getArtists(offset);
         setOffset(offset + 20);
     }, [totalSongs, artistLists, totalArtists]);
@@ -46,9 +45,7 @@ export default function LikedSongs({ code }) {
                 })
             })
             .then(res => {
-                console.log(artistLists);
                 const sortNumAsc = new Map([...artistLists].sort((a, b) => b[1] - a[1]));
-                console.log(sortNumAsc);
             })
     }
 

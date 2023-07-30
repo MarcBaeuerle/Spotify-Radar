@@ -40,7 +40,6 @@ let gotAverages = false;
 export default function TopTracks({ code }) {
 
     const accessToken = useAuth(code);
-    console.log(accessToken);
     let shortAverages;
     let longAverages;
     let songNames;
@@ -157,7 +156,20 @@ export default function TopTracks({ code }) {
         <div>
             {(finalData) ? renderInfo(1) :
                 renderInfo(0)}
+            <Footer />
         </div>
     )
 }
 
+function Footer() {
+    return (
+        <div className='flex-col text-center pb-7 pt-5'>
+            <hr className='my-7 h-0.5 border-t-0 bg-transparent bg-gradient-to-r from-transparent via-blue-950 to-transparent opacity-25 dark:opacity-100 w-1/2 m-auto' />
+            <p className='font-light'>Built by Marc Baeuerle</p>
+            <p className='font-light'>Project Hosted on <a className='underline hover:text-green-600 duration-300'
+                href='https://github.com/MarcBaeuerle/Spotify-Radar'>Github</a>
+            </p>
+        </div>
+    )
+
+}

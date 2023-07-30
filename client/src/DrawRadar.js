@@ -35,7 +35,6 @@ const computeScores = (data) => {
 }
 
 export default function DrawRadar({ data }) {
-    console.log(`DrawRadar`);
     const chartData = {
         labels: ['Duration', 'Tempo', 'Popularity', 'Mood', 'Energy'],
         datasets: [{

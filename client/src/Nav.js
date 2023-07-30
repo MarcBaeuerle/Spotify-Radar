@@ -1,17 +1,17 @@
 import React, { useState } from "react"
 
-export const AUTH_URL =
-    "https://accounts.spotify.com/authorize?client_id=9bc2ed28c5124518a2b45d4d3d514721&response_type=code&redirect_uri=http://localhost:3000&scope=user-read-private%20user-top-read"
+export default function Nav({code, privBtn, homeBtn}) {
+    let AUTH_URL =
+        `https://accounts.spotify.com/authorize?client_id=9bc2ed28c5124518a2b45d4d3d514721&response_type=code&redirect_uri=http://localhost:3000&scope=user-read-private%20user-top-read&show_dialog=${(localStorage.getItem('logged-in'))}`
 
-export default function Nav({code}) {
+
     const [openMenu, setOpenMenu] = useState(false);
-
     const toggleMenu = () => {
         setOpenMenu(!openMenu)
     }
 
     const logOutButton = (
-        <a href="/" className='transform duration-300 p-3 hover:-translate-y-1'>
+        <a onClick={() => {localStorage.setItem("logged-in", true);}} href="/" className='transform duration-300 p-3 hover:-translate-y-1'>
             Log out
         </a >
     );
@@ -23,20 +23,20 @@ export default function Nav({code}) {
     )
 
     const homeButton = (
-        <div className='cursor-pointer transform duration-300 p-3 hover:-translate-y-1'>
+        <div onClick={() => {homeBtn()}}  className='cursor-pointer transform duration-300 p-3 hover:-translate-y-1'>
             Home
         </div >
     )
 
     const privacyPolicyButton = (
-        <div className='cursor-pointer h-fulltransform duration-300 p-3 hover:-translate-y-1'>
+        <div onClick={() => {privBtn()}} className='cursor-pointer h-fulltransform duration-300 p-3 hover:-translate-y-1'>
             Privacy Policy
         </div >
     )
 
     return (
         <>
-            <div className={`${openMenu ? ' opacity-100 ' : ' opacity-0 '} duration-500 ease-in-out flex flex-col z-0 sm:hidden text-blue-950 font-rale font-bold text-xl absolute w-full h-fit bg-red-100 p-7 shadow-xl`}>
+            <div className={`${openMenu ? ' opacity-100 ' : ' opacity-0 '} duration-500 ease-in-out flex flex-col z-0 sm:hidden text-blue-950 font-rale font-bold text-xl absolute w-full h-fit bg-red-100 p-7 shadow-xl text-center`}>
                 {homeButton}
                 {privacyPolicyButton}
                 {code ? (logOutButton) : (logInButton)}

@@ -4,6 +4,7 @@ import App from './App';
 import './input.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+console.log("%cWelcome to %cSpotify Radar", "", "color: green; font-weight: bolder", "");
 root.render(
         <App />
 );

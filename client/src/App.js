@@ -4,19 +4,35 @@ import Nav from './Nav';
 
 const code = new URLSearchParams(window.location.search).get('code');
 
-const AUTH_URL =
-    "https://accounts.spotify.com/authorize?client_id=9bc2ed28c5124518a2b45d4d3d514721&response_type=code&redirect_uri=http://localhost:3000&scope=user-read-private%20user-top-read"
 
 export default function App() {
+
+    const [displayPrivacy, setDisplayPrivacy] = useState(false);
+    
+
+    function toggleDisplay(val) {
+        setDisplayPrivacy(val);
+    }
+
+    if (code) {
+        localStorage.setItem("logged-in", false);
+    }
+
     return (
         <>
             <Background code={code} />
-            <Nav code={code} />
+            <Nav code={code} privBtn={() => toggleDisplay(true)} homeBtn={() => toggleDisplay(false)}/>
 
-            {code ? <TopTracks code={code} /> : <Login />}
-            {false ? null : <PrivacyPolicy />}
+            {code ? 
+                <div className={`${displayPrivacy ? 'hidden' : 'block'}`}>
+                    <TopTracks code={code} /> 
+                </div> : 
+                <div className={`${displayPrivacy ? 'hidden' : 'block'}`}>
+                <Login />
+                </div>}
 
-            {code ? <Footer /> : null}
+
+            {displayPrivacy ? <PrivacyPolicy /> : null}
         </>
     )
 }
@@ -36,6 +52,10 @@ function Background({ code }) {
 }
 
 function Login() {
+    let AUTH_URL =
+        `https://accounts.spotify.com/authorize?client_id=9bc2ed28c5124518a2b45d4d3d514721&response_type=code&redirect_uri=http://localhost:3000&scope=user-read-private%20user-top-read&show_dialog=${(localStorage.getItem('logged-in') || true)}`
+
+
     return (
         <section className='relative flex h-fit w-full'>
             <div className='z-30 mx-auto my-32 font-rale rounded-3xl h-96 w-80 bg-blue-950 text-gray-200 p-7 flex flex-col items-center justify-around shadow-2xl shadow-black'>
@@ -62,8 +82,8 @@ function Login() {
 
 function PrivacyPolicy() {
     return (
-        <section className='-z-10 relative flex h-fit w-screen'>
-            <div className=' w-4/5 h-fit z-30 mx-auto my-16 sm:w-3/4 md:w-2/3 lg:w font-rale rounded-3xl bg-blue-950 text-gray-200 p-10 gap-7 leading-6 flex flex-col shadow-2xl shadow-black'>
+        <section className='-z-10 relative flex h-fit w-full'>
+            <div className='w-4/5 h-fit z-30 mx-auto my-16 sm:w-3/4 md:w-2/3 lg:w font-rale rounded-3xl bg-blue-950 text-gray-200 p-10 gap-7 leading-6 flex flex-col shadow-2xl shadow-black'>
                 <h1 className='text-center text-3xl font-mont'>Privacy policy</h1>
                 <div>
                     <p className=''>By logging into spotify through this site, you are agreeing to provide the following information in order to show your stats: </p>
@@ -87,15 +107,3 @@ function PrivacyPolicy() {
     )
 }
 
-function Footer() {
-    return (
-        <div className='flex-col text-center pb-7 pt-5'>
-            <hr className='my-7 h-0.5 border-t-0 bg-transparent bg-gradient-to-r from-transparent via-blue-950 to-transparent opacity-25 dark:opacity-100 w-1/2 m-auto' />
-            <p className='font-light'>Built by Marc Baeuerle</p>
-            <p className='font-light'>Project Hosted on <a className='underline hover:text-green-600 duration-300'
-                href='https://github.com/MarcBaeuerle/Spotify-Radar'>Github</a>
-            </p>
-        </div>
-    )
-
-}
