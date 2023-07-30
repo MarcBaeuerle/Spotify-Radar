@@ -2,7 +2,7 @@ import React, { useState } from "react"
 
 export default function Nav({code, privBtn, homeBtn}) {
     let AUTH_URL =
-        `https://accounts.spotify.com/authorize?client_id=9bc2ed28c5124518a2b45d4d3d514721&response_type=code&redirect_uri=http://localhost:3000&scope=user-read-private%20user-top-read&show_dialog=${(localStorage.getItem('logged-in'))}`
+        `https://accounts.spotify.com/authorize?client_id=9bc2ed28c5124518a2b45d4d3d514721&response_type=code&redirect_uri=https://spotifyradar.netlify.app/&scope=user-read-private%20user-top-read&show_dialog=${(localStorage.getItem('logged-in'))}`
 
 
     const [openMenu, setOpenMenu] = useState(false);

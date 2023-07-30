@@ -59,4 +59,4 @@ app.post('/login', (req, res) => {
         })
 })
 
-app.listen(REDIRECT_URI);
+app.listen(3001);
