@@ -35,10 +35,7 @@ const getAverageFeatures = (arr) => {
     }
 }
 
-let gotAverages = false;
-
 export default function TopTracks({ code }) {
-
     const accessToken = useAuth(code);
     let shortAverages;
     let longAverages;
