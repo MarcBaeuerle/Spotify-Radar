@@ -8,14 +8,15 @@ export default function useAuth(code) {
     const [expiresIn, setExpiresIn] = useState();
 
     useEffect(() => {
-        axios.post('http://localhost:3001/login', {
+        axios.post('https://spotify-radar.onrender.com/login', {
             code,
         }).then(res => {
                 setAccessToken(res.data.accessToken);
                 setRefreshToken(res.data.refreshToken);
                 setExpiresIn(res.data.expiresIn);
                 window.history.pushState({}, null, "/");
-            }).catch(() => {
+            }).catch((err) => {
+                console.log(err);
                 window.location = '/';
             })
     }, [code])
@@ -23,7 +24,7 @@ export default function useAuth(code) {
     useEffect(() => {
         if (!refreshToken || !expiresIn) return;
         const interval = setInterval(() => {
-            axios.post('http://localhost:3001/refresh', {
+            axios.post('https://spotify-radar.onrender.com/refresh', {
                 refreshToken,
             }).then(res => {
                 setAccessToken(res.data.accessToken);

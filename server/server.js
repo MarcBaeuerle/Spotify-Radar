@@ -8,6 +8,8 @@ const REDIRECT_URI = process.env.REDIRECT_URI || 'http://localhost:3000';
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
+const PORT = process.env.PORT || 3001;
+
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -55,8 +57,9 @@ app.post('/login', (req, res) => {
         })
         .catch((err) => {
             console.log(err)
+            console.log(REDIRECT_URI);
             res.sendStatus(400)
         })
 })
 
-app.listen(3001);
+app.listen(PORT);

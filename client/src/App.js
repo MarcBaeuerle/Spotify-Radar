@@ -53,8 +53,7 @@ function Background({ code }) {
 
 function Login() {
     let AUTH_URL =
-        `https://accounts.spotify.com/authorize?client_id=9bc2ed28c5124518a2b45d4d3d514721&response_type=code&redirect_uri=https://spotifyradar.netlify.app/&scope=user-read-private%20user-top-read&show_dialog=${(localStorage.getItem('logged-in') || true)}`
-
+        `https://accounts.spotify.com/authorize?client_id=9bc2ed28c5124518a2b45d4d3d514721&response_type=code&redirect_uri=https://spotifyradar.netlify.app/login&scope=user-read-private%20user-top-read&show_dialog=${(localStorage.getItem('logged-in') || true)}`
 
     return (
         <section className='relative flex h-fit w-full'>
