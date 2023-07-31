@@ -39,8 +39,6 @@ app.post('/refresh', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-    console.log(`CLIENT_ID: ${CLIENT_ID}`);
-    console.log(`CLIENT_SECRET: ${CLIENT_SECRET}`);
     const code = req.body.code;
     const spotifyApi = new SpotifyWebApi({
         redirectUri: REDIRECT_URI,
@@ -48,6 +46,7 @@ app.post('/login', (req, res) => {
         clientSecret: CLIENT_SECRET,
     });
 
+    console.log(`CODE: ${code}`);
     spotifyApi
         .authorizationCodeGrant(code)
         .then(data => {
@@ -55,7 +54,8 @@ app.post('/login', (req, res) => {
                 accessToken: data.body.access_token,
                 refreshToken: data.body.refresh_token,
                 expiresIn: data.body.expires_in,
-            })
+            });
+            console.log(`ACCESS_TOKEN: ${data.body.access_token}`);
         })
         .catch((err) => {
             console.log(`CODE: ${code}`)
