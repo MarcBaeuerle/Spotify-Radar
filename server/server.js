@@ -56,6 +56,8 @@ app.post('/login', (req, res) => {
             })
         })
         .catch((err) => {
+            console.log(`CODE: ${code}`)
+            console.log(`DATA: ${data}`);
             console.log(err)
             console.log(REDIRECT_URI);
             res.sendStatus(400)
