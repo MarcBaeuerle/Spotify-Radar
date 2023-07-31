@@ -68,6 +68,7 @@ function Login() {
                 <a href={AUTH_URL} className='bg-green-500 hover:bg-blue-950 hover:text-white hover:border-green-500 border-2 border-blue-950 text-black font-extrabold py-3 px-6 w-fit relative rounded-xl'>
                     Login with Spotify
                 </a>
+                <p className='text-center text-green-500'>Currently only whitelisted users can log-in, still pending Spotify Approval</p>
                 <div className='items-center flex flex-col text-sm'>
                     <p className=''>Built by Marc Baeuerle</p>
                     <p className=''>Project Hosted on <a className='underline duration-200 hover:text-green-500'
@@ -81,7 +82,7 @@ function Login() {
 
 function PrivacyPolicy() {
     return (
-        <section className='-z-10 relative flex h-fit w-full'>
+        <section className='relative flex h-fit w-full'>
             <div className='w-4/5 h-fit z-30 mx-auto my-16 sm:w-3/4 md:w-2/3 lg:w font-rale rounded-3xl bg-blue-950 text-gray-200 p-10 gap-7 leading-6 flex flex-col shadow-2xl shadow-black'>
                 <h1 className='text-center text-3xl font-mont'>Privacy policy</h1>
                 <div>

@@ -18,6 +18,7 @@ export default function Login() {
                     Login with Spotify
                 </a>
                 <div className='items-center flex flex-col text-sm'>
+                    <p className=''>Currently only whitelisted users can log-in, still pending Spotify Approval</p>
                     <p className=''>Built by Marc Baeuerle</p>
                     <p className=''>Project Hosted on <a className='underline duration-200 hover:text-green-500'
                         href='https://github.com/MarcBaeuerle/Spotify-Radar'>Github</a>
