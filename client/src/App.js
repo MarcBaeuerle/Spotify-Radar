@@ -71,7 +71,7 @@ function Login() {
                 <p className='text-center text-green-500'>Currently only whitelisted users can log-in, still pending Spotify Approval</p>
                 <div className='items-center flex flex-col text-sm'>
                     <p className=''>Built by Marc Baeuerle</p>
-                    <p className=''>Project Hosted on <a className='underline duration-200 hover:text-green-500'
+                    <p className='opacity-0'>Project Hosted on <a className='underline duration-200 hover:text-green-500'
                         href='https://github.com/MarcBaeuerle/Spotify-Radar'>Github</a>
                     </p>
                 </div>
@@ -97,7 +97,7 @@ function PrivacyPolicy() {
 
                 <div className='items-center flex flex-col text-sm'>
                     <p className=''>Built by Marc Baeuerle</p>
-                    <p className=''>Project Hosted on <a className='underline duration-200 hover:text-green-500'
+                    <p className='opacity-0'>Project Hosted on <a className='underline duration-200 hover:text-green-500'
                         href='https://github.com/MarcBaeuerle/Spotify-Radar'>Github</a>
                     </p>
                 </div>
