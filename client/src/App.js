@@ -69,7 +69,7 @@ function Login() {
                     Login with Spotify
                 </a>
                 <div className='items-center flex flex-col text-sm'>
-                    <p className='opacity-0'>Built by Marc Baeuerle</p>
+                    <p className=''>Built by Marc Baeuerle</p>
                     <p className=''>Project Hosted on <a className='underline duration-200 hover:text-green-500'
                         href='https://github.com/MarcBaeuerle/Spotify-Radar'>Github</a>
                     </p>
@@ -95,7 +95,7 @@ function PrivacyPolicy() {
                 <p>If you would like to remove this sites permission from fetching your data through Spotifies developer API, then you can visit <a className='underline hover:text-green-500 duration-200' href='https://www.spotify.com/us/account/apps/'>this page</a> and remove "Spotify Radar"'s access.</p>
 
                 <div className='items-center flex flex-col text-sm'>
-                    <p className='opacity-0'>Built by Marc Baeuerle</p>
+                    <p className=''>Built by Marc Baeuerle</p>
                     <p className=''>Project Hosted on <a className='underline duration-200 hover:text-green-500'
                         href='https://github.com/MarcBaeuerle/Spotify-Radar'>Github</a>
                     </p>
