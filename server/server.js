@@ -39,6 +39,8 @@ app.post('/refresh', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
+    console.log(`CLIENT_ID: ${CLIENT_ID}`);
+    console.log(`CLIENT_SECRET: ${CLIENT_SECRET}`);
     const code = req.body.code;
     const spotifyApi = new SpotifyWebApi({
         redirectUri: REDIRECT_URI,
@@ -57,7 +59,6 @@ app.post('/login', (req, res) => {
         })
         .catch((err) => {
             console.log(`CODE: ${code}`)
-            console.log(`DATA: ${data}`);
             console.log(err)
             console.log(REDIRECT_URI);
             res.sendStatus(400)
