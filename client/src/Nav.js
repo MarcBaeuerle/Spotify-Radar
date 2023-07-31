@@ -36,7 +36,7 @@ export default function Nav({code, privBtn, homeBtn}) {
 
     return (
         <>
-            <div className={`${openMenu ? ' opacity-100 ' : ' opacity-0 '} duration-500 ease-in-out flex flex-col z-0 sm:hidden text-blue-950 font-rale font-bold text-xl absolute w-full h-fit bg-red-100 p-7 shadow-xl text-center`}>
+            <div className={`${openMenu ? ' opacity-100 ' : ' opacity-0 '} duration-500 ease-in-out flex flex-col z-50 sm:hidden text-blue-950 font-rale font-bold text-xl absolute w-full h-fit bg-red-100 p-7 shadow-xl text-center`}>
                 {homeButton}
                 {privacyPolicyButton}
                 {code ? (logOutButton) : (logInButton)}

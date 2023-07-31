@@ -28,7 +28,7 @@ export default function App() {
                     <TopTracks code={code} /> 
                 </div> : 
                 <div className={`${displayPrivacy ? 'hidden' : 'block'}`}>
-                <Login />
+                    <Login />
                 </div>}
 
 
@@ -57,18 +57,14 @@ function Login() {
 
     return (
         <section className='relative flex h-fit w-full'>
-            <div className='z-30 mx-auto my-32 font-rale rounded-3xl h-96 w-80 bg-blue-950 text-gray-200 p-7 flex flex-col items-center justify-around shadow-2xl shadow-black'>
+            <div className='z-30 mx-auto mt-16 mb-auto font-rale rounded-3xl h-96 w-80 bg-blue-950 text-gray-200 p-7 flex flex-col items-center justify-around shadow-2xl shadow-black'>
                 <h1 className='text-3xl font-mont'>Spotify Radar</h1>
                 <div className='flex flex-col items-center'>
-                    <h4 className='text-center'>Your personal Spotify listening habits all in one
-                        digestable chart.
-                    </h4>
-                    <h4 className=''>Login below to get started</h4>
+                    <p className='text-center text-green-500'>Currently only whitelisted users can log-in, still pending Spotify Approval</p>
                 </div>
                 <a href={AUTH_URL} className='bg-green-500 hover:bg-blue-950 hover:text-white hover:border-green-500 border-2 border-blue-950 text-black font-extrabold py-3 px-6 w-fit relative rounded-xl'>
                     Login with Spotify
                 </a>
-                <p className='text-center text-green-500'>Currently only whitelisted users can log-in, still pending Spotify Approval</p>
                 <div className='items-center flex flex-col text-sm'>
                     <p className=''>Built by Marc Baeuerle</p>
                     <p className='opacity-0'>Project Hosted on <a className='underline duration-200 hover:text-green-500'
