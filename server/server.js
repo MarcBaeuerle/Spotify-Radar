@@ -46,7 +46,6 @@ app.post('/login', (req, res) => {
         clientSecret: CLIENT_SECRET,
     });
 
-    console.log(`CODE: ${code}`);
     spotifyApi
         .authorizationCodeGrant(code)
         .then(data => {
@@ -58,7 +57,6 @@ app.post('/login', (req, res) => {
             console.log(`ACCESS_TOKEN: ${data.body.access_token}`);
         })
         .catch((err) => {
-            console.log(`CODE: ${code}`)
             console.log(err)
             console.log(REDIRECT_URI);
             res.sendStatus(400)
